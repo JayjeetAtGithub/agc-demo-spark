@@ -1,17 +1,17 @@
 SELECT
   FLOOR((
     CASE
-      WHEN Jpt < 15 THEN 14.99
-      WHEN Jpt > 60 THEN 60.01
-      ELSE Jpt
+      WHEN J.pt < 15 THEN 14.99
+      WHEN J.pt > 60 THEN 60.01
+      ELSE J.pt
     END - 0.15) / 0.45) * 0.45 + 0.375 AS x,
   COUNT(*) AS y
-FROM hep
-LATERAL VIEW EXPLODE(Jet_pt) as Jpt
+FROM hep_table_main_restructured
+LATERAL VIEW EXPLODE(Jet) as J
 GROUP BY FLOOR((
     CASE
-      WHEN Jpt < 15 THEN 14.99
-      WHEN Jpt > 60 THEN 60.01
-      ELSE Jpt
+      WHEN J.pt < 15 THEN 14.99
+      WHEN J.pt > 60 THEN 60.01
+      ELSE J.pt
     END - 0.15) / 0.45) * 0.45 + 0.375
 ORDER BY x;

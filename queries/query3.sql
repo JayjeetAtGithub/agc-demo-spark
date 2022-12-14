@@ -1,57 +1,18 @@
 SELECT
   FLOOR((
     CASE
-      WHEN Jpt < 15 THEN 14.99
-      WHEN Jpt > 60 THEN 60.01
-      ELSE Jpt
+      WHEN J.pt < 15 THEN 14.99
+      WHEN J.pt > 60 THEN 60.01
+      ELSE J.pt
     END - 0.15) / 0.45) * 0.45 + 0.375 AS x,
   COUNT(*) AS y
-FROM hep
-LATERAL VIEW EXPLODE(Jet_pt) as Jpt
-LATERAL VIEW EXPLODE(Jet_eta) as Jeta
+FROM hep_table_main_restructured
+LATERAL VIEW EXPLODE(Jet) as J
+WHERE abs(J.eta) < 1
 GROUP BY FLOOR((
     CASE
-      WHEN Jpt < 15 THEN 14.99
-      WHEN Jpt > 60 THEN 60.01
-      ELSE Jpt
+      WHEN J.pt < 15 THEN 14.99
+      WHEN J.pt > 60 THEN 60.01
+      ELSE J.pt
     END - 0.15) / 0.45) * 0.45 + 0.375
 ORDER BY x;
--------------- next part --------------
-SELECT
-DISTINCT(MET_pt, jeta, jpt)
-FROM hep
-LATERAL VIEW EXPLODE(Jet_eta) as jeta
-LATERAL VIEW EXPLODE(Jet_pt) as jpt
-LIMIT 8;
-
---- we join 3 columns here, so we get some more duplicate values
----
-22.177032	-1.6034726	71.74248
-22.177032	-1.6034726	27.820534
-22.177032	-0.7512972	71.74248
-22.177032	-0.7512972	27.820534
-13.938024	-2.314745	23.159304
-13.938024	-2.314745	21.095522
-13.938024	-2.314745	17.393976
-13.938024	3.4676905	23.159304
----
-
-
-SELECT
-MET.pt, j.eta, j.pt
-FROM {input_table}
-CROSS JOIN UNNEST(Jet) AS j
-LIMIT 8;
-
---- we join 2 columns here
----
-"pt","eta","pt"
-"22.177032","-1.6034726","71.74248"
-"22.177032","-0.7512972","27.820534"
-"13.938024","-2.314745","23.159304"
-"13.938024","3.4676905","21.095522"
-"13.938024","-0.5865479","17.393976"
-"14.980909","1.774936","72.60342"
-"14.980909","2.2138","51.305126"
-"14.980909","0.7034488","33.708572"
----
