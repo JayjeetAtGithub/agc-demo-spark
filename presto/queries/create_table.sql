@@ -1,4 +1,4 @@
-CREATE TABLE hep (
+CREATE TABLE IF NOT EXISTS {input_table} (
     run                 INTEGER,
     luminosityBlock     BIGINT,
     event               BIGINT,

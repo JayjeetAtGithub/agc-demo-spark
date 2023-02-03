@@ -58,7 +58,7 @@ def test_query(query_id):
     presto = init_presto()
 
     num_events = 1000
-    input_table = 'Run2012B_SingleMu-1000.parquet'
+    input_table = 'Run2012B_SingleMu-1000'
 
     root_dir = join(dirname(__file__))
     query_dir = join(root_dir, 'queries', query_id)
@@ -68,8 +68,9 @@ def test_query(query_id):
     lib_file = join(root_dir, 'queries', 'common', 'functions.sql')
 
     # Create table
-    with open('create_table.sql', 'r') as f:
+    with open('queries/create_table.sql', 'r') as f:
         query = f.read()
+    query = query.format(input_table=input_table)
     output = presto.run(query)
     logging.info(output)
 
