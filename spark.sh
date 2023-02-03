@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-rm -rf spark*
+rm -rf spark-$VERSION-bin-hadoop3*
 
 VERSION=3.3.1
 
