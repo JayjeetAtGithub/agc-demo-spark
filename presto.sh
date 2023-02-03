@@ -4,22 +4,26 @@ set -e
 apt update
 apt install -y openjdk-8-jdk
 
+rm -rf $HOME/workspace
 mkdir -p $HOME/workspace
 cp hive-default.xml.template $HOME/workspace
 cd $HOME/workspace
 
 wget https://dlcdn.apache.org/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz
 tar -xvf apache-hive-3.1.3-bin.tar.gz
+rm -rf /opt/hive
 mkdir -p /opt/hive
 cp -r apache-hive-3.1.3-bin/. /opt/hive
 
 wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz
 tar -xvf hadoop-3.3.1.tar.gz
+rm -rf /opt/hadoop
 mkdir -p /opt/hadoop
 cp -r hadoop-3.3.1/. /opt/hadoop
 
 wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.278.1/presto-server-0.278.1.tar.gz
 tar -xvf presto-server-0.278.1.tar.gz
+rm -rf /opt/presto
 mkdir -p /opt/presto
 cp -r presto-server-0.278.1/. /opt/presto
 
