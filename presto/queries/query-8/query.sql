@@ -71,8 +71,8 @@ other_max_pt AS (
 
 -- Compute the histogram
 SELECT
-  mysql.default.HistogramBin(pt, 15, 250, 100) AS x,
+  HistogramBin(pt, 15, 250, 100) AS x,
   COUNT(*) AS y
 FROM other_max_pt
-GROUP BY mysql.default.HistogramBin(pt, 15, 250, 100)
+GROUP BY HistogramBin(pt, 15, 250, 100)
 ORDER BY x;

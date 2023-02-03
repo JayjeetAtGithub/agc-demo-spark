@@ -59,8 +59,8 @@ singular_system AS (
 
 -- Generate the histogram
 SELECT
-  mysql.default.HistogramBin(btag, 0, 1, 100) AS x,
+  HistogramBin(btag, 0, 1, 100) AS x,
   COUNT(*) AS y
 FROM singular_system
-GROUP BY mysql.default.HistogramBin(btag, 0, 1, 100)
+GROUP BY HistogramBin(btag, 0, 1, 100)
 ORDER BY x;

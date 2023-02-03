@@ -59,8 +59,8 @@ singular_system AS (
 
 -- Generate the histogram
 SELECT
-  mysql.default.HistogramBin(tri_jet_pt, 15, 40, 100) AS x,
+  HistogramBin(tri_jet_pt, 15, 40, 100) AS x,
   COUNT(*) AS y
 FROM singular_system
-GROUP BY mysql.default.HistogramBin(tri_jet_pt, 15, 40, 100)
+GROUP BY HistogramBin(tri_jet_pt, 15, 40, 100)
 ORDER BY x;

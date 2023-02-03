@@ -16,8 +16,8 @@ WITH temp AS (
   HAVING COUNT(*) > 0
 )
 SELECT
-  mysql.default.HistogramBin(pt, 0, 2000, 100) AS x,
+  HistogramBin(pt, 0, 2000, 100) AS x,
   COUNT(*) AS y
 FROM temp
-GROUP BY mysql.default.HistogramBin(pt, 0, 2000, 100)
+GROUP BY HistogramBin(pt, 0, 2000, 100)
 ORDER BY x;

@@ -17,8 +17,8 @@ WITH matching_jets AS (
 )
 -- Compute the histogram
 SELECT
-  mysql.default.HistogramBin(pt_sum, 15, 200, 100) AS x,
+  HistogramBin(pt_sum, 15, 200, 100) AS x,
   COUNT(*) AS y
 FROM matching_jets
-GROUP BY mysql.default.HistogramBin(pt_sum, 15, 200, 100)
+GROUP BY HistogramBin(pt_sum, 15, 200, 100)
 ORDER BY x;
