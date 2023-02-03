@@ -5,7 +5,7 @@ import logging
 import time
 import subprocess
 
-from os.path import dirname, joi
+from os.path import dirname, join
 from urllib.parse import quote_plus, urlencode
 from matplotlib import pyplot as plt
 from abc import ABC, abstractmethod
@@ -66,6 +66,12 @@ def test_query(query_id):
     ref_file = join(query_dir, 'ref{}.csv'.format(num_events))
     png_file = join(query_dir, 'plot{}.png'.format(num_events))
     lib_file = join(root_dir, 'queries', 'common', 'functions.sql')
+
+    # Create table
+    with open('create_table.sql', 'r') as f:
+        query = f.read()
+    output = presto.run(query)
+    logging.info(output)
 
     # Read query
     with open(query_file, 'r') as f:
