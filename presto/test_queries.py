@@ -58,7 +58,7 @@ def test_query(query_id):
     presto = init_presto()
 
     num_events = 1000
-    input_table = 'Run2012B_SingleMu-1000'
+    input_table = 'Run2012B_SingleMu_1000'
 
     root_dir = join(dirname(__file__))
     query_dir = join(root_dir, 'queries', query_id)
