@@ -82,6 +82,7 @@ def test_query(query_id):
     )
 
     # Read function library
+    presto.run('DROP FUNCTION IF EXISTS HistogramBin;')
     with open(lib_file, 'r') as f:
         lib = f.read()
     query = lib + query
