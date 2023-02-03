@@ -2,7 +2,9 @@
 set -e
 
 apt update
-apt install -y openjdk-8-jdk
+apt install -y openjdk-8-jdk python3-pip
+
+pip install -r req.txt
 
 rm -rf $HOME/workspace
 mkdir -p $HOME/workspace
