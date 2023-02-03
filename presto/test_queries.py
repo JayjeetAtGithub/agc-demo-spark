@@ -54,7 +54,9 @@ def init_presto():
                         presto_schema)
 
 
-def test_query(query_id, presto):
+def test_query(query_id):
+    presto = init_presto()
+
     num_events = 1000
     input_table = 'Run2012B_SingleMu_1000'
 
@@ -80,6 +82,12 @@ def test_query(query_id, presto):
     query = query.format(
         input_table=input_table,
     )
+
+    # Read function library
+    # presto.run('DROP TEMPORARY FUNCTION IF EXISTS presto.session.HistogramBin;')
+    with open(lib_file, 'r') as f:
+        lib = f.read()
+    query = lib + query
 
     # Run query and read result
     start_timestamp = time.time()
@@ -132,12 +140,6 @@ def test_query(query_id, presto):
 
 
 if __name__ == '__main__':
-  presto = init_presto()
-  
-  with open('lib/functions.sql', 'r') as f:
-    functions = f.read()
-  presto.run(functions)
-
   queries = [
     'query-1',
     'query-2',
@@ -150,4 +152,4 @@ if __name__ == '__main__':
     'query-8'
   ]
   for query in queries:
-    test_query(query, presto)
+    test_query(query)
