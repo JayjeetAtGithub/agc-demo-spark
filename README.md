@@ -3,13 +3,9 @@
 ## Installing Spark and PySpark
 
 ```bash
-apt update
-apt install -y default-jre default-jdk python3-pip
-
 git clone https://github.com/JayjeetAtGithub/iceberg-spark-hep
 cd iceberg-spark-hep/
-./master.sh localhost
-./worker.sh spark://localhost:7077
+./spark.sh localhost
 
 pip install pyspark
 ```
