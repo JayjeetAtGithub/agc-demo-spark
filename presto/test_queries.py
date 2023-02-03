@@ -84,10 +84,10 @@ def test_query(query_id):
     )
 
     # Read function library
-    presto.run("DROP TEMPORARY FUNCTION IF EXISTS HistogramBin")
+    presto.run("DROP TEMPORARY FUNCTION IF EXISTS HistogramBin;")
     with open(lib_file, 'r') as f:
         lib = f.read()
-    query = lib + query + "DROP TEMPORARY FUNCTION IF EXISTS HistogramBin"
+    query = lib + query + "DROP TEMPORARY FUNCTION IF EXISTS HistogramBin;"
 
     # Run query and read result
     start_timestamp = time.time()
