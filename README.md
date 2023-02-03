@@ -23,3 +23,11 @@ pyspark \
     --conf spark.sql.defaultCatalog=local \
     --conf spark.sql.catalogImplementation=in-memory
 ```
+
+## Starting Presto Shell
+
+```bash
+presto --server localhost:8080 --catalog hive --debug
+create schema test;
+use test;
+```
