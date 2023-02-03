@@ -1,25 +1,19 @@
 #!/usr/bin/env python3
 
 import io
-import json
 import logging
-from os.path import dirname, join
-import sys
 import time
-from urllib.parse import quote_plus, urlencode
-import warnings
+import subprocess
 
+from os.path import dirname, joi
+from urllib.parse import quote_plus, urlencode
 from matplotlib import pyplot as plt
 from abc import ABC, abstractmethod
 
 import numpy as np
 import pandas as pd
-import pytest
-import requests
-import subprocess
 
-# This superclass might be useful in case other means
-# of querying Presto are added in the future
+
 class PrestoProxy(ABC):
   @abstractmethod
   def run(self, query_file, other_params):
@@ -46,13 +40,12 @@ class PrestoCliProxy(PrestoProxy):
     return subprocess.check_output(cmd, encoding='utf-8', input=query)
 
 
-@pytest.fixture(scope="function")
-def presto(pytestconfig):
+def init_presto():
   # By default use the CLI
-  presto_cmd = pytestconfig.getoption('presto_cmd')
-  presto_server = pytestconfig.getoption('presto_server')
-  presto_catalogue = pytestconfig.getoption('presto_catalogue')
-  presto_schema = pytestconfig.getoption('presto_schema')
+  presto_cmd = 'presto'
+  presto_server = 'localhost:8080'
+  presto_catalogue = 'hive'
+  presto_schema = 'default'
   logging.info('Using executable %s', presto_cmd)
   logging.info('Using server %s', presto_server)
   logging.info('Using catalogue %s', presto_catalogue)
@@ -61,13 +54,11 @@ def presto(pytestconfig):
                         presto_schema)
 
 
-def test_query(query_id, pytestconfig, presto):
-    num_events = pytestconfig.getoption('num_events')
-    num_events = ('-' + str(num_events)) if num_events else ''
+def test_query(query_id):
+    presto = init_presto()
 
-    input_table = pytestconfig.getoption('input_table')
-    input_table = input_table or \
-        'Run2012B_SingleMu{}'.format(num_events.replace('-','_'))
+    num_events = 1000
+    input_table = 'Run2012B_SingleMu-1000.parquet'
 
     root_dir = join(dirname(__file__))
     query_dir = join(root_dir, 'queries', query_id)
@@ -115,18 +106,17 @@ def test_query(query_id, pytestconfig, presto):
     df.y = df.y.astype(int)
     df.reset_index(drop=True, inplace=True)
 
-    # Freeze reference result
-    if pytestconfig.getoption('freeze_result'):
-      df.to_csv(ref_file, index=False)
+    # # Freeze reference result
+    # if pytestconfig.getoption('freeze_result'):
+    #   df.to_csv(ref_file, index=False)
 
     # Read reference result
     df_ref = pd.read_csv(ref_file, dtype= {'x': np.float64, 'y': np.int32})
     logging.info(df_ref)
 
     # Plot histogram
-    if pytestconfig.getoption('plot_histogram'):
-      plt.hist(df.x, bins=len(df.index), weights=df.y)
-      plt.savefig(png_file)
+    plt.hist(df.x, bins=len(df.index), weights=df.y)
+    plt.savefig(png_file)
 
     # Normalize reference and query result
     df_ref = df_ref[df_ref.y > 0]
@@ -140,4 +130,16 @@ def test_query(query_id, pytestconfig, presto):
 
 
 if __name__ == '__main__':
-    pytest.main(sys.argv)
+  queries = [
+    'query-1',
+    'query-2',
+    'query-3',
+    'query-4',
+    'query-5',
+    'query-6-1',
+    'query-6-2',
+    'query-7',
+    'query-8'
+  ]
+  for query in queries:
+    test_query(query)
