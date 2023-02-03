@@ -73,6 +73,7 @@ def test_query(query_id):
     query = query.format(
       input_table=input_table
     )
+    print("Running query: " + query)
     output = presto.run(query)
     logging.info(output)
 
@@ -90,6 +91,7 @@ def test_query(query_id):
 
     # Run query and read result
     start_timestamp = time.time()
+    print("Running query: " + query)
     output = presto.run(query)
     end_timestamp = time.time()
     df = pd.read_csv(io.StringIO(output),
