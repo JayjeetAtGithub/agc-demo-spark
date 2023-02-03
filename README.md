@@ -6,7 +6,7 @@
 git clone https://github.com/JayjeetAtGithub/iceberg-spark-hep
 cd iceberg-spark-hep/
 ./spark.sh localhost
-
+./presto.sh
 pip install pyspark
 ```
 
