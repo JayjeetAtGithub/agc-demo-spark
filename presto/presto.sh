@@ -35,6 +35,10 @@ export HADOOP_HOME=/opt/hadoop
 export HIVE_HOME=/opt/hive
 export PATH=$PATH:${HADOOP_HOME}:${HADOOP_HOME}/bin:$HIVE_HOME:/bin:.
 
+# Install hive mysql jdbc connector
+wget --progress=dot:giga https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.49.tar.gz -O - | tar -xz --strip-components=1
+cp mysql-connector-java-5.1.49.jar $HIVE_HOME/lib/mysql-connector-java.jar
+
 $HADOOP_HOME/bin/hadoop fs -mkdir -p /user/hive/warehouse
 cp hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
 mkdir -p $HIVE_HOME/hcatalog/var/log
