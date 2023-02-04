@@ -12,11 +12,15 @@ pip install pyspark
 
 wget https://dlcdn.apache.org/spark/spark-$VERSION/spark-$VERSION-bin-hadoop3.tgz
 tar -xvf spark-$VERSION-bin-hadoop3.tgz
-cd spark-$VERSION-bin-hadoop3
+rm -rf /opt/spark
+mkdir -p /opt/spark
+cp -r spark-$VERSION-bin-hadoop3/. /opt/spark
 
-curl https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime-3.3_2.12/1.1.0/iceberg-spark-runtime-3.3_2.12-1.1.0.jar -Lo jars/iceberg-spark-runtime-3.3_2.12-1.1.0.jar
+export SPARK_HOME=/opt/spark
 
-./sbin/start-master.sh -h $1
-./sbin/start-worker.sh spark://$1:7077
+curl https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime-3.3_2.12/1.1.0/iceberg-spark-runtime-3.3_2.12-1.1.0.jar -Lo $SPARK_HOME/jars/iceberg-spark-runtime-3.3_2.12-1.1.0.jar
+
+$SPARK_HOME/sbin/start-master.sh -h $1
+$SPARK_HOME/sbin/start-worker.sh spark://$1:7077
 
 echo "Spark deployed at spark://$1:7077"
