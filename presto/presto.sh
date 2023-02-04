@@ -80,7 +80,8 @@ iceberg.catalog.type=hive
 EOF
 
 cat > $PRESTO_HOME/etc/function-namespace/mysql.properties << EOF
-function-namespace-manager.name=mysql database-url=jdbc:mysql://localhost:3306/presto?user=root&password=password
+function-namespace-manager.name=mysql
+database-url=jdbc:mysql://localhost:3306/presto?user=root&password=password
 function-namespaces-table-name=function_namespaces
 functions-table-name=sql_functions
 EOF
