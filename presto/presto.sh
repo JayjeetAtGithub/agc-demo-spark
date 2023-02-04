@@ -55,7 +55,7 @@ discovery-server.enabled=true
 discovery.uri=http://localhost:8080
 EOF
 
-cat > $PRESTO_HOME/etc/jvm.properties << EOF
+cat > $PRESTO_HOME/etc/jvm.config << EOF
 -server
 -Xmx16G
 -XX:+UseG1GC
