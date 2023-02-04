@@ -41,6 +41,7 @@ mkdir -p $HIVE_HOME/hcatalog/var/log
 $HIVE_HOME/bin/schematool -dbType derby -initSchema
 $HIVE_HOME/hcatalog/sbin/hcat_server.sh start
 mkdir -p $PRESTO_HOME/etc/catalog
+mkdir -p $PRESTO_HOME/etc/function-namespace
 
 cat > $PRESTO_HOME/etc/config.properties << EOF
 coordinator=true
@@ -76,6 +77,12 @@ cat > $PRESTO_HOME/etc/catalog/iceberg.properties << EOF
 connector.name=iceberg
 hive.metastore.uri=thrift://localhost:9083
 iceberg.catalog.type=hive
+EOF
+
+cat > $PRESTO_HOME/etc/function-namespace/mysql.properties << EOF
+function-namespace-manager.name=mysql database-url=jdbc:mysql://localhost:3306/presto?user=root&password=password
+function-namespaces-table-name=function_namespaces
+functions-table-name=sql_functions
 EOF
 
 $PRESTO_HOME/bin/launcher start
