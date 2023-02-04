@@ -91,7 +91,7 @@ function-namespaces-table-name=function_namespaces
 functions-table-name=sql_functions
 EOF
 
-$PRESTO_HOME/bin/launcher start
+$PRESTO_HOME/bin/launcher start --verbose
 
 wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.278.1/presto-cli-0.278.1-executable.jar
 chmod +x presto-cli-0.278.1-executable.jar
