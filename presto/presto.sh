@@ -38,7 +38,7 @@ export PATH=$PATH:${HADOOP_HOME}:${HADOOP_HOME}/bin:$HIVE_HOME:/bin:.
 $HADOOP_HOME/bin/hadoop fs -mkdir -p /user/hive/warehouse
 cp hive-default.xml.template $HIVE_HOME/conf/hive-site.xml
 mkdir -p $HIVE_HOME/hcatalog/var/log
-$HIVE_HOME/bin/schematool -dbType derby -initSchema
+$HIVE_HOME/bin/schematool -dbType mysql -initSchema
 $HIVE_HOME/hcatalog/sbin/hcat_server.sh start
 mkdir -p $PRESTO_HOME/etc/catalog
 mkdir -p $PRESTO_HOME/etc/function-namespace
