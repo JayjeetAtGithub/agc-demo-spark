@@ -55,7 +55,7 @@ discovery-server.enabled=true
 discovery.uri=http://localhost:8080
 EOF
 
-cat > $PRESTO_HOME/etc/jvm.config << EOF
+cat > $PRESTO_HOME/etc/jvm.properties << EOF
 -server
 -Xmx16G
 -XX:+UseG1GC
@@ -64,6 +64,7 @@ cat > $PRESTO_HOME/etc/jvm.config << EOF
 -XX:+ExplicitGCInvokesConcurrent
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:+ExitOnOutOfMemoryError
+-Xbootclasspath/a:/opt/presto/plugin/mysql/mysql-connector-java-5.1.48.jar
 EOF
 
 cat > $PRESTO_HOME/etc/node.properties << EOF
