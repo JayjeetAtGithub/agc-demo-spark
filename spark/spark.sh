@@ -8,7 +8,7 @@ VERSION=3.3.2
 apt update
 apt install -y default-jre default-jdk python3-pip
 
-pip install pyspark
+pip install pyspark jupyter
 
 wget https://dlcdn.apache.org/spark/spark-$VERSION/spark-$VERSION-bin-hadoop3.tgz
 tar -xvf spark-$VERSION-bin-hadoop3.tgz
