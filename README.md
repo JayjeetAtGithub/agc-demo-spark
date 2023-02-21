@@ -4,7 +4,7 @@
 
 ```bash
 git clone https://github.com/JayjeetAtGithub/iceberg-spark-hep
-cd iceberg-spark-hep/
+cd iceberg-spark-hep/spark/
 ./spark.sh localhost
 ./presto.sh
 ```
