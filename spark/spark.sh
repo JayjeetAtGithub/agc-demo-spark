@@ -3,7 +3,7 @@ set -ex
 
 rm -rf spark-$VERSION-bin-hadoop3*
 
-VERSION=3.3.1
+VERSION=3.3.2
 
 apt update
 apt install -y default-jre default-jdk python3-pip
