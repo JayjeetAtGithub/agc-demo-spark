@@ -6,7 +6,7 @@ SELECT
       ELSE J.pt
     END - 0.15) / 0.45) * 0.45 + 0.375 AS x,
   COUNT(*) AS y
-FROM hep_table_main_restructured
+FROM {table}
 LATERAL VIEW EXPLODE(Jet) as J
 GROUP BY FLOOR((
     CASE

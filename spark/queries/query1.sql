@@ -6,7 +6,7 @@ SELECT
       ELSE MET.pt
     END) / 20) * 20 + 10 AS x,
   COUNT(*) AS y
-FROM hep_table_main_restructured
+FROM {table}
 GROUP BY FLOOR((
     CASE
       WHEN MET.pt < 0 THEN -1

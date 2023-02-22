@@ -1,6 +1,6 @@
 WITH matching_jets AS (
   SELECT event, SUM(j.pt) AS pt_sum
-  FROM hep_table_main_restructured
+  FROM {table}
   LATERAL VIEW EXPLODE(Jet) AS j
   WHERE
     j.pt > 30 AND

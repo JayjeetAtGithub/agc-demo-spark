@@ -1,6 +1,6 @@
 WITH temp AS (
   SELECT event, MET.pt, COUNT(*)
-  FROM hep_table_main_restructured
+  FROM {table}
   LATERAL VIEW POSEXPLODE(Muon) AS idx1,m1
   LATERAL VIEW POSEXPLODE(Muon) AS idx2,m2
   WHERE

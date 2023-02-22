@@ -6,7 +6,7 @@ SELECT
       ELSE MET.pt
     END) / 20) * 20 + 10 AS x,
   COUNT(*) AS y
-FROM hep_table_main_restructured
+FROM {table}
 WHERE cardinality(filter(Jet.pt, x -> x > 40)) > 1
 GROUP BY FLOOR((
     CASE

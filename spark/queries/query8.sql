@@ -13,7 +13,7 @@ WITH uniform_structure_leptons AS (
         x -> CAST( STRUCT(x.pt, x.eta, x.phi, x.mass, x.charge, 'e') AS STRUCT<pt: FLOAT, eta: FLOAT, phi: FLOAT, mass: FLOAT, charge: INT, type: CHAR(256)> )
       )
     ) AS Leptons
-  FROM hep_table_main_restructured
+  FROM {table}
   WHERE cardinality(Muon) + cardinality(Electron) > 2
 ),
 
